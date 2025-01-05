@@ -28,3 +28,11 @@ class Post(models.Model):
     image = models.ImageField(
         upload_to='images/', default='../default_post_tvgfiq', blank=True
     )
+
+    class Meta:
+
+        ordering = ['-created_at']
+
+    def __str__(self):
+  
+        return f'{self.id} {self.title}'
