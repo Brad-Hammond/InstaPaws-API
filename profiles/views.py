@@ -45,3 +45,13 @@ ProfileList View:
         'followers_total',
         'following_total',
     ]
+
+class ProfileDetail(generics.RetrieveUpdateAPIView):
+
+    permission_classes = [IsOwnerOrReadOnly]
+    queryset = Profile.objects.annotate(
+        followers_total=Count('owner__followed', distinct=True),
+        following_total=Count('owner__following', distinct=True),
+        posts_total=Count('owner__post', distinct=True)
+    ).order_by('-created_at')
+    serializer_class = ProfileSerializer
