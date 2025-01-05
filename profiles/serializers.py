@@ -27,7 +27,13 @@ class ProfileSerializer(serializers.ModelSerializer):
         return None
     
     class Meta:
+        '''
+        Meta class for the ProfileSerializer.
 
+        Specifies the model to be serialized (Profile) and the fields to be included
+        in the serialized representation. These fields cover the profile's metadata,
+        ownership, and totals related to posts, followers, and following.
+        '''
         model = Profile
         fields = [
             'id', 'owner', 'created_at', 'updated_at', 'name',
