@@ -3,7 +3,11 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Post(models.Model):
-
+    """
+    Represents a user-created post with details like title, tags, content, 
+    and an optional image. Includes timestamps for creation and updates, 
+    and categorization via predefined tags.
+    """
     tags_array = [
         ('Puppies', 'Puppies'),
         ('Training', 'Training'),
