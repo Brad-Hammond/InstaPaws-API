@@ -3,7 +3,11 @@ from likes.models import Like
 from .models import Post
 
 class PostSerializer(serializers.ModelSerializer):
-
+    """
+    Serializer for the Post model.
+    - Converts Post objects into JSON format for API responses.
+    - Handles validation and ensures data integrity for posts.
+    """
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     like_id = serializers.SerializerMethodField()
