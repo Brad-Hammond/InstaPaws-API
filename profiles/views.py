@@ -7,3 +7,27 @@ from .serializers import ProfileSerializer
 
 
 # Create your views here.
+class ProfileList(generics.ListAPIView):
+
+    queryset = Profile.objects.annotate(
+        followers_total=Count('owner__followed', distinct=True),
+        following_total=Count('owner__following', distinct=True),
+        posts_total=Count('owner__post', distinct=True)
+    ).order_by('-created_at')
+    serializer_class = ProfileSerializer
+    filter_backends = [
+        filters.OrderingFilter,
+        DjangoFilterBackend,
+    ]
+    filterset_fields = [
+
+        'owner__following__followed__profile',
+        'owner__followed__owner__profile',
+    ]
+    ordering_fields = [
+        'posts_total',
+        'owner__following__created_at',
+        'owner__followed__created_at',
+        'followers_total',
+        'following_total',
+    ]
