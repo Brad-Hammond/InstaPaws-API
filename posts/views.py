@@ -7,7 +7,14 @@ from .serializers import PostSerializer
 
 # Create your views here.
 class PostList(generics.ListCreateAPIView):
-
+    '''
+    Handles listing and creating posts in the API.
+    Includes:
+    - Annotated like/comment counts.
+    - Filtering by owner, tags, likes, and followed profiles.
+    - Search by title, tags, and owner's username.
+    - Ordering by comments, likes, or like creation date.
+    '''
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Post.objects.annotate(
@@ -37,5 +44,8 @@ class PostList(generics.ListCreateAPIView):
     ]
 
     def perform_create(self, serializer):
- 
+        '''
+        Customizes the creation process by assigning the currently authenticated user
+        as the owner of the object being created.
+        '''
         serializer.save(owner=self.request.user)
