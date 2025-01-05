@@ -30,9 +30,15 @@ class Post(models.Model):
     )
 
     class Meta:
-
+        '''
+        Defines metadata for the Post model.
+        - Sets the default ordering of posts to newest first, based on the created_at field.
+        '''
         ordering = ['-created_at']
 
     def __str__(self):
-  
+        '''
+        Returns a string representation of the Post instance.
+        - Combines the post ID and title for easier identification.
+        '''
         return f'{self.id} {self.title}'
