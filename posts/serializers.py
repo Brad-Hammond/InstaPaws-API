@@ -17,7 +17,14 @@ class PostSerializer(serializers.ModelSerializer):
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
 
     def validate_image(self, value):
-
+        """
+        Validates the uploaded image for file size, height, and width.
+        - Ensures the file size does not exceed 2MB.
+        - Checks that the image height is no greater than 4096 pixels.
+        - Verifies that the image width is no greater than 4096 pixels.
+        - Raises a ValidationError if any of these conditions are violated.
+        - Returns the image if all validations pass.
+        """
         if value.size > 2 * 1024 * 1024:
             raise serializers.ValidationError('Image size larger than 2MB!')
         if value.image.height > 4096:
