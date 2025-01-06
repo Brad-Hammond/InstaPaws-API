@@ -112,9 +112,9 @@ if 'CLIENT_ORIGIN' in os.environ:
      ]
 else:
     CORS_ALLOWED_ORIGINS = [
-        'http://localhost:3000',
-        'https://instapaws-api-7ae61eec653f.herokuapp.com',
-    ]
+    'https://instapaws-api-7ae61eec653f.herokuapp.com',
+    'http://localhost:3000',
+]
 
 CORS_ALLOW_CREDENTIALS = True
 
