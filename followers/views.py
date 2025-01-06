@@ -5,7 +5,12 @@ from .serializers import FollowerSerializer
 
 # Create your views here.
 class FollowerList(generics.ListCreateAPIView):
+    """
+    API view for listing followers and creating follow relationships.
 
+    - Lists all followers for a user.
+    - Allows authenticated users to create new follow relationships.
+    """
     serializer_class = FollowerSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Follower.objects.all()
