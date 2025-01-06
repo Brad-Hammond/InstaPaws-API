@@ -22,10 +22,18 @@ class Follower(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        """
+        Metadata for the Follower model.
 
+        - 'ordering': Orders follower records by creation time in descending order.
+        - 'unique_together': Ensures that each owner can only follow a specific user once.
+        """
         ordering = ['-created_at']
         unique_together = ['owner', 'followed']
 
     def __str__(self):
-
+        '''
+        Returns a string representation of the follower relationship 
+        showing the follower and the followed user.
+        '''
         return f'{self.owner} {self.followed}'
