@@ -23,7 +23,13 @@ class LikeList(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 class LikeDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    API view for retrieving, updating, or deleting a like.
 
+    - serializer_class: Handles Like object serialization with LikeSerializer.
+    - permission_classes: Ensures only the like owner can edit or delete; others have read-only access.
+    - queryset: Retrieves all Like instances from the database.
+    """
     serializer_class = LikeSerializer
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Like.objects.all()
