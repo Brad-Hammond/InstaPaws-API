@@ -25,7 +25,16 @@ class Like(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        """
+        Meta class for the Like model.
 
+    - ordering: Specifies the default ordering for query results. 
+                In this case, likes will be ordered by the 'created_at' 
+                timestamp in descending order (most recent first).
+    - unique_together: Ensures that a combination of 'owner' and 'post' 
+                       is unique. This means a user ('owner') can like a 
+                       specific post only once.
+        """
         ordering = ['-created_at']
         unique_together = ['owner', 'post']
 
