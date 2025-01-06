@@ -62,7 +62,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEV' in os.environ
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'instapaws-api.herokuapp.com']
+ALLOWED_HOSTS = ['instapaws-api-7ae61eec653f.herokuapp.com', '127.0.0.1', 'localhost']
+
 
 
 # Application definition
