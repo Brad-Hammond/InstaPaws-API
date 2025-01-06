@@ -7,14 +7,22 @@ from .settings import (
 
 @api_view()
 def home_route(request):
-
+    """
+    API home route:
+    - Returns a welcome message for the InstaPaws API.
+    - Provides a simple endpoint to verify the API is running.
+    """
     return Response({
         "message": "Hello! This is InstaPaws API"
     })
 
 @api_view(['POST'])
 def logout_route(request):
-
+    """
+    API logout route:
+    - Clears JWT authentication and refresh cookies to log the user out.
+    - Sets the cookies with an empty value and an expiration date in the past (1960).
+    """
     response = Response()
     response.set_cookie(
         key=JWT_AUTH_COOKIE,
@@ -35,3 +43,8 @@ def logout_route(request):
         secure=JWT_AUTH_SECURE,
     )
     return response
+
+from django.http import HttpResponse
+
+def favicon(request):
+    return HttpResponse(status=204)
