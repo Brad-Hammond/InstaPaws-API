@@ -7,6 +7,10 @@ from .settings import (
 )
 
 @api_view()
+def test_view(request):
+    return Response({"message": "Test successful!"})
+
+@api_view()
 def home_route(request):
     """
     API home route:

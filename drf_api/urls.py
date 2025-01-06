@@ -22,6 +22,7 @@ from . import views
 urlpatterns = [
     path('', home_route),
     path('admin/', admin.site.urls),
+    path('test/', views.test_view),
     path('api-auth/', include('rest_framework.urls')),
     path('dj-rest-auth/logout/', logout_route),
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
