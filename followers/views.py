@@ -19,7 +19,12 @@ class FollowerList(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 class FollowerDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    API view for retrieving, updating, or deleting a specific follower relationship.
 
+    - Allows retrieving details of a follower by ID.
+    - Enables the owner to update or delete the follower relationship.
+    """
     serializer_class = FollowerSerializer
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Follower.objects.all()
