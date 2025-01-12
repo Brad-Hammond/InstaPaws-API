@@ -5,6 +5,7 @@ from drf_api.permissions import IsOwnerOrReadOnly
 from .models import Post
 from .serializers import PostSerializer
 
+
 # Create your views here.
 class PostList(generics.ListCreateAPIView):
     '''
@@ -45,10 +46,12 @@ class PostList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         '''
-        Customizes the creation process by assigning the currently authenticated user
+        Customizes the creation process by assigning the currently
+        authenticated user
         as the owner of the object being created.
         '''
         serializer.save(owner=self.request.user)
+
 
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     '''

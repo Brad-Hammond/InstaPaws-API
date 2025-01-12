@@ -1,11 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 class Post(models.Model):
     """
-    Represents a user-created post with details like title, tags, content, 
-    and an optional image. Includes timestamps for creation and updates, 
+    Represents a user-created post with details like title, tags, content,
+    and an optional image. Includes timestamps for creation and updates,
     and categorization via predefined tags.
     """
     tags_array = [
@@ -32,7 +33,8 @@ class Post(models.Model):
     class Meta:
         '''
         Defines metadata for the Post model.
-        - Sets the default ordering of posts to newest first, based on the created_at field.
+        - Sets the default ordering of posts to newest first, based on the
+          created_at field.
         '''
         ordering = ['-created_at']
 

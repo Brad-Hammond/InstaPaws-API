@@ -46,12 +46,14 @@ ProfileList View:
         'following_total',
     ]
 
+
 class ProfileDetail(generics.RetrieveUpdateAPIView):
     """
 ProfileDetail View:
 - Handles the retrieval and updating of a single profile instance.
 - Permissions:
-  - Uses IsOwnerOrReadOnly to ensure only the profile owner can update their profile,
+  - Uses IsOwnerOrReadOnly to ensure only the profile owner can update
+    their profile,
     while others can only view it.
 - Queryset:
   - Annotates the profile with additional information:
