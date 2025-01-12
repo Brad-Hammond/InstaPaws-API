@@ -2,11 +2,12 @@ from django.db import IntegrityError
 from rest_framework import serializers
 from .models import Follower
 
+
 class FollowerSerializer(serializers.ModelSerializer):
     """
     FollowerSerializer:
     - Serializes the Follower model to handle JSON data exchange.
-    - Includes fields to represent the owner (user who follows) and 
+    - Includes fields to represent the owner (user who follows) and
       the followed user, along with additional metadata.
     """
     owner = serializers.ReadOnlyField(source='owner.username')
@@ -25,7 +26,7 @@ class FollowerSerializer(serializers.ModelSerializer):
         """
         Custom create method:
         - Attempts to create a new Follower instance with the validated data.
-        - Handles the IntegrityError if the user tries to follow the same 
+        - Handles the IntegrityError if the user tries to follow the same
           person more than once, raising a validation error instead.
         """
         try:

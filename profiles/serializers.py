@@ -2,8 +2,9 @@ from rest_framework import serializers
 from followers.models import Follower
 from .models import Profile
 
+
 class ProfileSerializer(serializers.ModelSerializer):
- 
+
     owner = serializers.ReadOnlyField(source='owner.username')
     following_id = serializers.SerializerMethodField()
     posts_total = serializers.ReadOnlyField()
@@ -25,13 +26,15 @@ class ProfileSerializer(serializers.ModelSerializer):
             ).first()
             return following.id if following else None
         return None
-    
+
     class Meta:
         '''
         Meta class for the ProfileSerializer.
 
-        Specifies the model to be serialized (Profile) and the fields to be included
-        in the serialized representation. These fields cover the profile's metadata,
+        Specifies the model to be serialized (Profile) and the fields to
+        be included
+        in the serialized representation. These fields cover the profile's
+        metadata,
         ownership, and totals related to posts, followers, and following.
         '''
         model = Profile

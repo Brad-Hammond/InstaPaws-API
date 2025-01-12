@@ -4,12 +4,14 @@ from drf_api.permissions import IsOwnerOrReadOnly
 from .models import Comment
 from .serializers import CommentSerializer, CommentDetailSerializer
 
+
 # Create your views here.
 class CommentList(generics.ListCreateAPIView):
     """
     View to list and create comments.
 
-    - Allows read-only access for unauthenticated users and full access for authenticated users.
+    - Allows read-only access for unauthenticated users and full access for
+    authenticated users.
     - Supports filtering comments by associated post.
     - Automatically sets the current user as the owner when creating a comment.
     """
@@ -23,6 +25,7 @@ class CommentList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
 
 class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
     """

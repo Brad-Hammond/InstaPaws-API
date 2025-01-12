@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 class Profile(models.Model):
     '''
@@ -13,7 +14,8 @@ class Profile(models.Model):
         updated_at (DateTime): Timestamp for when the profile was last updated.
         name (str): Optional name field for the profile.
         content (str): Optional bio or description field for the profile.
-        image (ImageField): Profile image, with a default placeholder if not provided.
+        image (ImageField): Profile image, with a default placeholder
+        if not provided.
     '''
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -42,7 +44,9 @@ def create_profile(sender, instance, created, **kwargs):
         created (bool): Indicates whether the User instance was newly created.
         **kwargs: Additional keyword arguments.
     '''
+
     if created:
         Profile.objects.create(owner=instance)
+
 
 post_save.connect(create_profile, sender=User)

@@ -3,6 +3,7 @@ from drf_api.permissions import IsOwnerOrReadOnly
 from .models import Follower
 from .serializers import FollowerSerializer
 
+
 # Create your views here.
 class FollowerList(generics.ListCreateAPIView):
     """
@@ -18,9 +19,11 @@ class FollowerList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+
 class FollowerDetail(generics.RetrieveUpdateDestroyAPIView):
     """
-    API view for retrieving, updating, or deleting a specific follower relationship.
+    API view for retrieving, updating, or deleting a specific follower-
+    relationship.
 
     - Allows retrieving details of a follower by ID.
     - Enables the owner to update or delete the follower relationship.

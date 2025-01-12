@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from .models import Comment
 
+
 class CommentSerializer(serializers.ModelSerializer):
     """
     Serializer for the Comment model, providing data serialization
@@ -42,6 +43,7 @@ class CommentSerializer(serializers.ModelSerializer):
             'id', 'owner', 'created_at', 'updated_at', 'profile_id',
             'profile_image', 'is_owner', 'post', 'comment_info',
         ]
+
 
 class CommentDetailSerializer(CommentSerializer):
     """

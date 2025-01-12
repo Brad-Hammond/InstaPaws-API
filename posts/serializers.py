@@ -2,6 +2,7 @@ from rest_framework import serializers
 from likes.models import Like
 from .models import Post
 
+
 class PostSerializer(serializers.ModelSerializer):
     """
     Serializer for the Post model.
@@ -36,7 +37,7 @@ class PostSerializer(serializers.ModelSerializer):
                 'Image width larger than 4096px!'
             )
         return value
-    
+
     def get_is_owner(self, obj):
         """
         Checks ownership of the post.
@@ -46,10 +47,11 @@ class PostSerializer(serializers.ModelSerializer):
         """
         request = self.context['request']
         return request.user == obj.owner
-    
+
     def get_like_id(self, obj):
         """
-        Retrieves the ID of the like relationship for the current user and post.
+        Retrieves the ID of the like relationship for the current
+        user and post.
         - If the authenticated user has liked the post, return the like ID.
         - If no like exists or the user is not authenticated, return None.
         """
@@ -60,7 +62,7 @@ class PostSerializer(serializers.ModelSerializer):
             ).first()
             return like.id if like else None
         return None
-    
+
     class Meta:
         """
         Metadata for the PostSerializer.
