@@ -109,13 +109,10 @@ MIDDLEWARE = [
 ]
 
 if 'CLIENT_ORIGIN' in os.environ:
-     CORS_ALLOWED_ORIGINS = [
-         os.environ.get('CLIENT_ORIGIN')
-     ]
-else:
     CORS_ALLOWED_ORIGINS = [
     'https://instapaws-api-7ae61eec653f.herokuapp.com',
     'http://localhost:3000',
+    
 ]
 
 CORS_ALLOW_CREDENTIALS = True
