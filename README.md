@@ -1,131 +1,133 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+<h1 align="center">InstaPaws Django Rest Framework API - Project Portfolio 5</h1>
 
-Welcome USER_NAME,
+### [View the live project here](https://instapaws-f3da7aad813f.herokuapp.com/) #
+### [View the deployed API here](https://instapaws-api-7ae61eec653f.herokuapp.com/) #
+### [View the API repository here](https://github.com/Brad-Hammond/InstaPaws-API) #
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+## User Stories
 
-You can safely delete this README.md file or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **June 18, 2024**
+From a backend perspective, the API's user stories center around CRUD operations and authentication functionalities.
+1. As an admin, I want the ability to create profiles, posts, likes, and comments so that I can manage content effectively.
+2. As an admin, I want the ability to update profiles, posts, likes, and comments so that I can modify any content as needed.
+3. As an admin, I want the ability to delete profiles, posts, likes, and comments so that I can remove any content that is harmful or inappropriate.
 
-## Gitpod Reminders
+## Database Model Structure
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+<img src="docs/readmeimages/ERDImage.jpg" alt="Entity-Relationship Diagram">
 
-`python3 -m http.server`
+### Profile Model
 
-A blue button should appear to click: _Make Public_,
+- This model establishes a one-to-one relationship with the User model, which is imported from django-allauth.
+- The Profile model includes all fields associated with a user’s profile upon creation. These fields are as follows:
+1. owner: OneToOneField linked to the User model
+2. created_at: DateTimeField representing when the profile was created
+3. updated_at: DateTimeField representing when the profile was last updated
+4. name: CharField for the profile's name
+5. content: TextField for additional profile information
+6. image: ImageField with a default profile image
 
-Another blue button should appear to click: _Open Browser_.
+### User Model
 
-To run a backend Python file, type `python3 app.py` if your Python file is named `app.py`, of course.
+- This model is imported from django-allauth and is integrated into all functional model classes.
+- The User model includes several fields associated with various foreign models within the application:
+1. Profile model: The owner field establishes a OneToOne relationship with the User model.
+2. Posts model: The owner field holds a ForeignKey relationship with the User model.
+3. Likes model: The owner field holds a ForeignKey relationship with the User model.
+4. Followers model: The owner and followed fields hold ForeignKey relationships with the User model, representing "following" and "followed" connections.
+5. Comments model: The owner field holds a ForeignKey relationship with the User model.
 
-A blue button should appear to click: _Make Public_,
+### Post Model
 
-Another blue button should appear to click: _Open Browser_.
+- The Post model includes all fields associated with a post created by a logged-in user. These fields are as follows:
+1. owner = ForeignKey with User field
+2. created_at = DateTimeField
+3. updated_at = DateTimeField
+4. title = CharField
+5. tags = CharField with choices from tags_array
+6. content = TextField
+7. image = ImageField with default post image
 
-By Default, Gitpod gives you superuser security privileges. Therefore, you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+### Follower Model
 
-To log into the Heroku toolbelt CLI:
+- The Follower model includes all fields associated with a logged-in user attempting to follow another profile. These fields are as follows:
+1. owner = ForeignKey with User field
+2. followed = ForeignKey between User field and followed field
+3. created_at = DateTimeField
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+### Like Model
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you, so do not share it. If you accidentally make it public, you can create a new one with _Regenerate API Key_.
+- The Like model includes all fields associated with a logged-in user attempting to like a created post. These fields are as follows:
+1. owner = ForeignKey with User field
+2. post = ForeignKey between Post model field and likes field
+3. created_at = DateTimeField
 
-### Connecting your Mongo database
+### Comment Model
 
-- **Connect to Mongo CLI on a IDE**
-- navigate to your MongoDB Clusters Sandbox
-- click **"Connect"** button
-- select **"Connect with the MongoDB shell"**
-- select **"I have the mongo shell installed"**
-- choose **mongosh (2.0 or later)** for : **"Select your mongo shell version"**
-- choose option: **"Run your connection string in your command line"**
-- in the terminal, paste the copied code `mongo "mongodb+srv://<CLUSTER-NAME>.mongodb.net/<DBname>" --apiVersion 1 --username <USERNAME>`
-  - replace all `<angle-bracket>` keys with your own data
-- enter password _(will not echo **\*\*\*\*** on screen)_
+- The Comment model includes multiple fields associated with the content and metadata of comments. These fields are as follows:
+1. owner = owner field holds ForeignKey relationship with User model
+2. post = post field holds ForeignKey relationship with Post model
+3. comment_info = TextField for comment input
+4. created_at = DateTimeField
+5. updated_at = DateTimeField
 
-------
+## Languages and Technologies Used
 
-## Release History
+- This project was developed primarily using Python, a versatile programming language commonly used for building websites, software applications, task automation, and data analysis.
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+- The API was built using Django, a robust framework designed to streamline the development of secure and maintainable websites. It offers a wide range of tools and features that enable efficient and rapid application development.
 
-**June 18, 2024,** Add Mongo back into template
+### Tools Used
 
-**June 14, 2024,** Temporarily remove Mongo until the key issue is resolved
+- [Django Rest Framework](https://www.django-rest-framework.org/) was utilized to implement and enhance various features of the API.
+- [Cloudinary](https://cloudinary.com/) was used to manage and store static files, including assets for general styling and user-related features.
+- [Visual Studio Code](https://code.visualstudio.com/) my preferred integrated development environment, was used for coding and project management.
+- [GitHub](https://github.com/) served as the platform to host and manage the project's code repositories.
+- [Heroku](https://dashboard.heroku.com/apps) was utilized for hosting and deploying the API to a live environment.
+- [PostgreSQL](https://www.postgresql.org/) functioned as the relational database for managing and storing user-related data.
+- [Pillow](https://python-pillow.org/) provided image input validation, including filtering by resolution and dimensions.
+- [Psycopg2](https://pypi.org/project/psycopg2/) database adapter for Python.
 
-**May 28 2024:** Fix Mongo and Links installs
+## Testing
 
-**April 26 2024:** Update node version to 16
+To verify the functionality of my API, I conducted manual tests for both user and admin roles.
 
-**September 20 2023:** Update Python version to 3.9.17.
+### Validation
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+- [PEP8 Linter](https://pep8ci.herokuapp.com/) I utilized a PEP8 linter to ensure that my code adhered to PEP8 standards. Each .py file in the project was tested and successfully validated, confirming compliance.
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
+### Manual Testing of User Stories
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+1. As an admin, I want create functionality of all profiles, posts, likes, and comments.
+2. As an admin, I want update functionality of all profiles, posts, likes, and comments so that I can edit any content I choose to.
+3. As an admin, I want delete functionality of all profiles, posts, likes, and comments so that I can delete any content that may be deemed as harmful.
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
+| # | Test | Functionality | Expected Outcome | Actual Outcome |
+| --- | --- | --- | --- | --- |
+| 1 | User | CRUD functionality for users | A user can be created, viewed, updated, or deleted. | Functionality works as expected. |
+| 2 | Profile | CRUD functionality for profiles | A profile can be created, viewed, updated, or deleted for a user (only own profile). | Functionality works as expected. |
+| 3 | Posts | CRUD functionality for posts | A post can be created, viewed, updated, or deleted for a user (only own posts). | Functionality works as expected. |
+| 4 | Likes | Create and delete likes | A like can be added to or removed from a post by a logged-in user (not on own posts). | Functionality works as expected. |
+| 5 | Followers | Create and delete followers | A follow can be added to or removed from another user by a logged-in user. | Functionality works as expected. |
+| 6 | Comments | CRUD functionality for comments | A comment can be created, viewed, updated, or deleted, associated with a post (only own comments). | Functionality works as expected. |
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
+<strong>The table above covers all of my user stories, including the creation, updating, and deletion functionalities for all aspects of my website. </strong>
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+- I conducted thorough manual testing across all the models and components I developed to ensure their functionality and reliability. The components tested include Likes, Posts, Profiles, Comments, and Followers. Each component was carefully tested to verify its behavior in various scenarios, including:
+1. Likes: Ensuring users can like posts, while preventing users from liking their own posts.
+2. Posts: Verifying that users can create, read, update, and delete their own posts, while ensuring they cannot modify posts created by others.
+3. Profiles: Testing profile creation, updating, and deletion functionalities, ensuring users can only edit their own profiles.
+4. Comments: Confirming that users can add, edit, delete, and view comments associated with posts, with restrictions on editing or deleting comments by others.
+5. Followers: Testing the ability to follow and unfollow other users while ensuring users cannot follow themselves.
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+- Each of these components was tested in isolation and integrated into the system to ensure smooth interactions and proper functionality. Through this process, I validated that the API behaves as expected in all tested scenarios.
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+## Known Bugs
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+- The Django admin panel on the launched drf-api has no css, and I am unsure of how to change this.
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+## Credits
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
+- Inspiration from this API was taken from the [Moments](https://github.com/Code-Institute-Solutions/drf-api) walkthrough project from Code Institute and helped within the guidance and steps of creating this API.
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
-
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
-
-------
-
-## FAQ about the uptime script
-
-**Why have you added this script?**
-
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
-
-**How will this affect me?**
-
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
-
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
-
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
-
-**So….?**
-
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
-
-**Can I opt out?**
-
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
-
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
-
-**Anything more?**
-
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
-
----
-
-Happy coding!
+- Please note I was not assigned a mentor for my Portfolio Porject 5 so this project was completed without any mentorship.
